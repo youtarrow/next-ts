@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  // @ts-ignore TS6133: 'event' is declared but its value is never read.
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
