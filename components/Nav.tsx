@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function ScrollableTabsButtonAuto() {
+export default function Nav() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   // @ts-ignore TS6133: 'event' is declared but its value is never read.
