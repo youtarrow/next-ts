@@ -1,6 +1,8 @@
+// Title.tsx
 .title {
   font-size: 25px;
   margin-bottom: 30px;
+  margin-top: 5vw;
   text-align: center;
   font-weight: bold;
   span {
@@ -16,6 +18,17 @@
       left: 0;
       bottom: -2px;
       margin: 0 auto;
+    }
+  }
+}
+
+// Blog.tsx
+@media screen and (max-width: 640px) {
+  .blog {
+    &__list {
+      .iteme {
+        max-width: 100%;
+      }
     }
   }
 }
