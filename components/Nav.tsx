@@ -39,13 +39,10 @@ export default function Nav() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-          <Tab label="Item Four" {...a11yProps(3)} />
-          <Tab label="Item Five" {...a11yProps(4)} />
-          <Tab label="Item Six" {...a11yProps(5)} />
-          <Tab label="Item Seven" {...a11yProps(6)} />
+          <Tab label="新着記事" {...a11yProps(0)} />
+          <Tab label="記事一覧" {...a11yProps(1)} />
+          <Tab label="タグ" {...a11yProps(2)} />
+          <Tab label="プロフィール" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
     </div>
