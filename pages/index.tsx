@@ -23,7 +23,7 @@ const Index: NextPage<Props> = ({ dataList }) => {
         <ul>
           {dataList.map((dataList) => (
             <li key={dataList.id}>
-              <Link href={`/blog/${dataList.id}`}>
+              <Link href={`blog/${dataList.id}`}>
                 <a>{dataList.title}</a>
               </Link>
             </li>
@@ -39,9 +39,9 @@ export const getStaticProps: GetStaticProps = async (): Promise<{
   props: Props
 }> => {
   const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY }
+    headers: { 'X-API-KEY': process.env.API_KEY as string }
   }
-  const res = await axios.get(process.env.END_POINT + 'https://next-ts.microcms.io/api/v1/blog', key)
+  const res = await axios.get(process.env.END_POINT + 'blog/', key)
   const data: Array<microCmsData> = await res.data.contents
   return {
     props: {

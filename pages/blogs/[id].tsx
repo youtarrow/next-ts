@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       headers: { 'X-API-KEY': process.env.API_KEY }
     }
     const res = await axios.get(
-      process.env.END_POINT + 'https://next-ts.microcms.io/api/v1/blog' + params?.id,
+      process.env.END_POINT + 'blog/' + params?.id,
       key
     )
     const data: Props = await res.data
