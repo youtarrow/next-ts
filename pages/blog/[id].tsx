@@ -16,7 +16,7 @@ const BlogDetail: NextPage<Props> = (props) => {
         <title>ブログ詳細</title>
       </Head>
       <h1 className="title">ブログ詳細</h1>
-      <Link href="/blogs/">
+      <Link href="/">
         <a className="link">ブログトップへ</a>
       </Link>
       <div className="item">

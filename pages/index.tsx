@@ -23,7 +23,7 @@ const Index: NextPage<Props> = ({ dataList }) => {
         <ul>
           {dataList.map((dataList) => (
             <li key={dataList.id}>
-              <Link href={`blog/${dataList.id}`}>
+              <Link href={`/blog/${dataList.id}`}>
                 <a>{dataList.title}</a>
               </Link>
             </li>
