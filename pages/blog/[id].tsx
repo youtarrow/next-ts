@@ -4,7 +4,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import Link from 'next/link'
 
-interface Props {
+export type Props = {
   blog: microCmsData
   errors?: string
 }
@@ -30,9 +30,9 @@ const BlogDetail: NextPage<Props> = (props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const key = {
-      headers: { 'X-API-KEY': process.env.API_KEY }
+      headers: { 'X-API-KEY': process.env.API_KEY as string }
     }
-    const res = await axios.get(process.env.END_POINT + 'blog/?limit=9999', key)
+    const res = await axios.get(process.env.END_POINT + '?limit=9999', key)
     const data: Array<microCmsData> = await res.data.contents
     const paths = data.map((item) => ({
       params: { id: item.id.toString() }
@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       headers: { 'X-API-KEY': process.env.API_KEY }
     }
     const res = await axios.get(
-      process.env.END_POINT + 'blog/' + params?.id,
+      process.env.END_POINT as string + params?.id,
       key
     )
     const data: Props = await res.data
