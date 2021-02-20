@@ -30,7 +30,7 @@ const BlogDetail: NextPage<Props> = (props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const key = {
-      headers: { 'X-API-KEY': process.env.API_KEY }
+      headers: { 'X-API-KEY': process.env.API_KEY as string }
     }
     const res = await axios.get(process.env.END_POINT + '?limit=9999', key)
     const data: Array<microCmsData> = await res.data.contents
