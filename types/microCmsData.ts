@@ -1,10 +1,27 @@
-import { Tag } from "types/tag";
+// import { Tag } from "types/tag";
 
-export interface microCmsData {
+export type microCmsData = {
   id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
   title: string;
   image: { url: string };
   body: string;
-  origin: string;
-  tags: Tag[];
+  tag: string;
+  meta: {
+    fieldId: string;
+    metaTitle: string;
+    metaDescription: string;
+  };
+  kv: {
+    fieldId: string;
+    image: {
+      url: string;
+      height: number;
+      width: number;
+    };
+    kv_alt: string;
+  };
 };
