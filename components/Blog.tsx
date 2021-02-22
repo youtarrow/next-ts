@@ -1,6 +1,7 @@
 import React from "react";
 import { NextPage } from "next";
 import { makeStyles } from "@material-ui/core/styles";
+import dayjs from 'dayjs'
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -38,7 +39,7 @@ export const Blog: NextPage<Props> = (props) => {
             title="Contemplative Reptile"
           />
           <CardContent>
-            <p>{props.postDate}</p>
+            <p>{`${dayjs(props.postDate).format('YYYY年MM月DD日')}`}</p>
             <Typography gutterBottom variant="h5" component="h2">
               {props.postTitle}
             </Typography>
