@@ -1,5 +1,3 @@
-// import { Tag } from "types/tag";
-
 export type microCmsData = {
   id: string;
   createdAt: string;

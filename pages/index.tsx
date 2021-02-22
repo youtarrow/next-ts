@@ -11,7 +11,7 @@ import { microCmsData } from "types/microCmsData";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
-interface Props {
+export type Props = {
   dataList: Array<microCmsData>;
 }
 
@@ -23,7 +23,7 @@ const Index: NextPage<Props> = ({ dataList }) => {
         <Nav />
         <div className="blog">
           <div className="inner">
-            <Title title={"Contents"} className={Style.title} />
+            <Title title={"Contents"} />
             <Box
               display="flex"
               flexWrap="wrap"
