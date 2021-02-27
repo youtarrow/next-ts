@@ -1,7 +1,8 @@
 import React from "react";
 import { NextPage } from "next";
 import { makeStyles } from "@material-ui/core/styles";
-import dayjs from 'dayjs'
+import Link from "next/link";
+import dayjs from "dayjs";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,7 +14,8 @@ import Style from "components/styles/style.module.scss";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    maxWidth: 310,
+    width: "calc(100%/3)",
     margin: 5,
   },
   media: {
@@ -24,42 +26,43 @@ const useStyles = makeStyles({
 export type Props = {
   postTitle: string;
   postDate: string;
-}
+  postKv: string;
+  postId: string;
+  postTags: string;
+};
 
 export const Blog: NextPage<Props> = (props) => {
   const classes = useStyles();
 
   return (
     <>
-      <Card className={`${classes.root} ${Style.iteme}`}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="https://placehold.jp/300x300.png"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <p>{`${dayjs(props.postDate).format('YYYY年MM月DD日')}`}</p>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.postTitle}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+      <Card className={`${classes.root} ${Style.iteme}`} component="li">
+        <Link href={`/blog/${props.postId}`}>
+          <a>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={`${props.postKv}`}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <p>{`${dayjs(props.postDate).format("YYYY年MM月DD日")}`}</p>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {props.postTitle}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </a>
+        </Link>
         <CardActions>
+          タグ：
           <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
+            {props.postTags}
           </Button>
         </CardActions>
       </Card>
     </>
   );
-}
+};
 
-export default Blog
+export default Blog;

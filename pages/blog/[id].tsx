@@ -5,24 +5,26 @@ import axios from 'axios'
 import Link from 'next/link'
 
 export type Props = {
-  blog: microCmsData
-  errors?: string
+  dataList: microCmsData;
+  postBody: string;
+  errors?: string;
 }
 
 const BlogDetail: NextPage<Props> = (props) => {
+  const postBody = `${props.dataList.body}`;
+
   return (
     <>
       <Head>
         <title>ブログ詳細</title>
       </Head>
-      <h1 className="title">ブログ詳細</h1>
       <Link href="/">
         <a className="link">ブログトップへ</a>
       </Link>
-      <div className="item">
-        <h2 className="item__title">{props.blog.title}</h2>
-        <p className="item__tag">タグ：</p>
-        <p className="item__description">説明：</p>
+      <div className="article">
+        <h2 className="article__title">{props.dataList.title}</h2>
+        <p className="article__tag">タグ：{props.dataList.tag}</p>
+        <div dangerouslySetInnerHTML={{ __html: postBody }}></div>
       </div>
     </>
   )
@@ -37,7 +39,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths = data.map((item) => ({
       params: { id: item.id.toString() }
     }))
-  
     return { paths, fallback: false }
   }
 
@@ -51,7 +52,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     )
     const data: Props = await res.data
     return {
-      props: { blog: data }
+      props: { dataList: data }
     }
   }
 
