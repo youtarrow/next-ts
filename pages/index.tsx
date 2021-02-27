@@ -6,14 +6,13 @@ import Header from "components/Header";
 import Nav from "components/Nav";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
-import Link from "next/link";
 import { microCmsData } from "types/microCmsData";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
 export type Props = {
   dataList: Array<microCmsData>;
-}
+};
 
 const Index: NextPage<Props> = ({ dataList }) => {
   return (
@@ -27,13 +26,22 @@ const Index: NextPage<Props> = ({ dataList }) => {
             <Box
               display="flex"
               flexWrap="wrap"
-              bgcolor="background.paper"
               className={Style.blog__list}
+              component="ul"
             >
               {dataList.map((dataList) => (
-                <Link key={dataList.id} href={`/blog/${dataList.id}`} >
-                  <a><Blog postTitle={`${dataList.title}`} postDate={`${dataList.createdAt}`} /></a>
-                </Link>
+                <Blog
+                  key={dataList.id}
+                  postId={`${dataList.id}`}
+                  postTitle={
+                    dataList.title.length > 30
+                      ? dataList.title.slice(0, 30) + "…"
+                      : dataList.title
+                  }
+                  postDate={`${dataList.createdAt}`}
+                  postKv={`${dataList.kv.image.url}`}
+                  postTags={`${dataList.tag}`}
+                />
               ))}
             </Box>
           </div>
@@ -43,7 +51,6 @@ const Index: NextPage<Props> = ({ dataList }) => {
   );
 };
 
-// 'X-API-KEY': string | undefined; をtsで定義できれば....
 export const getStaticProps: GetStaticProps = async (): Promise<{
   props: Props;
 }> => {

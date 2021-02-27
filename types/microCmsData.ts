@@ -5,7 +5,6 @@ export type microCmsData = {
   publishedAt: string;
   revisedAt: string;
   title: string;
-  image: { url: string };
   body: string;
   tag: string;
   meta: {
