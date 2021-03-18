@@ -1,4 +1,4 @@
-export type microCmsData = {
+export type MicroCmsData = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -6,7 +6,17 @@ export type microCmsData = {
   revisedAt: string;
   title: string;
   body: string;
-  tag: string;
+  tag: [
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      revisedAt: string;
+      tagTitle: string;
+      tagType: number;
+    }
+  ];
   meta: {
     fieldId: string;
     metaTitle: string;
@@ -21,4 +31,22 @@ export type microCmsData = {
     };
     kv_alt: string;
   };
+};
+
+export type MicroCmsBlog = {
+  contents: MicroCmsData[];
+};
+
+export type microCmsTags = {
+  contents: [
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      revisedAt: string;
+      tagTitle: string;
+      tagType: number;
+    }
+  ];
 };
