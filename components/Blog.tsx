@@ -29,6 +29,7 @@ export type Props = {
   postKv: string;
   postId: string;
   postTags: string;
+  postTagId: string;
 };
 
 export const Blog: NextPage<Props> = (props) => {
@@ -47,7 +48,7 @@ export const Blog: NextPage<Props> = (props) => {
               />
               <CardContent>
                 <p>{`${dayjs(props.postDate).format("YYYY年MM月DD日")}`}</p>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h6" component="h3">
                   {props.postTitle}
                 </Typography>
               </CardContent>
@@ -56,9 +57,13 @@ export const Blog: NextPage<Props> = (props) => {
         </Link>
         <CardActions>
           タグ：
-          <Button size="small" color="primary">
-            {props.postTags}
-          </Button>
+          <Link href={`/tags/${props.postTagId}`}>
+            <a>
+              <Button size="small" color="primary">
+                {props.postTags}
+              </Button>
+            </a>
+          </Link>
         </CardActions>
       </Card>
     </>

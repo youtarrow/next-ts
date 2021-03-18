@@ -1,8 +1,0 @@
-{
-  "build": {
-    "env": {
-      "API_KEY": "ffba9ff3-a797-4e1f-8159-508851757128",
-      "END_POINT": "https://next-ts.microcms.io/api/v1/blog/"
-    }
-  }
-}

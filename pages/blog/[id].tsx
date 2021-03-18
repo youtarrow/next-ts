@@ -1,17 +1,19 @@
-import { microCmsData } from "types/microCmsData";
-import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
-import axios from 'axios'
-import Link from 'next/link'
+import React from "react";
+import { MicroCmsData, MicroCmsBlog } from "types/microCmsData";
+import { NextPage, InferGetStaticPropsType } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import fetch from "node-fetch";
 
 export type Props = {
-  dataList: microCmsData;
   postBody: string;
   errors?: string;
-}
+};
 
-const BlogDetail: NextPage<Props> = (props) => {
-  const postBody = `${props.dataList.body}`;
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+const BlogDetail: NextPage<PageProps> = ({ posts }) => {
+  const postBody = `${posts.body}`;
 
   return (
     <>
@@ -22,38 +24,40 @@ const BlogDetail: NextPage<Props> = (props) => {
         <a className="link">ブログトップへ</a>
       </Link>
       <div className="article">
-        <h2 className="article__title">{props.dataList.title}</h2>
-        <p className="article__tag">タグ：{props.dataList.tag}</p>
+        <h2 className="article__title">{posts.title}</h2>
+        <p className="article__tag">タグ：{posts.tag[0].tagTitle}</p>
         <div dangerouslySetInnerHTML={{ __html: postBody }}></div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const key = {
-      headers: { 'X-API-KEY': process.env.API_KEY as string }
-    }
-    const res = await axios.get(process.env.END_POINT + '?limit=9999', key)
-    const data: Array<microCmsData> = await res.data.contents
-    const paths = data.map((item) => ({
-      params: { id: item.id.toString() }
-    }))
-    return { paths, fallback: false }
-  }
+export const getStaticPaths = async () => {
+  const key = {
+    headers: { "X-API-KEY": process.env.apiKeyCms as string },
+  };
+  const blogUrl = process.env.blogEndPoint as string;
+  const data: MicroCmsBlog = await fetch(blogUrl, key)
+    .then((res) => res.json())
+    .catch(() => null);
+  const paths = data.contents.map((content: any) => `/blog/${content.id}`);
+  return {
+    paths,
+    fallback: false,
+  };
+};
 
-  export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const key = {
-      headers: { 'X-API-KEY': process.env.API_KEY }
-    }
-    const res = await axios.get(
-      process.env.END_POINT as string + params?.id,
-      key
-    )
-    const data: Props = await res.data
-    return {
-      props: { dataList: data }
-    }
-  }
+export const getStaticProps = async (context: any) => {
+  const id = context.params.id;
+  const key = {
+    headers: { "X-API-KEY": process.env.apiKeyCms as string },
+  };
+  const blogUrl = process.env.blogEndPoint as string;
+  const res = await fetch(`${blogUrl}/${id}`, key);
+  const data: MicroCmsData = await res.json();
+  return {
+    props: { posts: data },
+  };
+};
 
-export default BlogDetail
+export default BlogDetail;

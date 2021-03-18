@@ -1,20 +1,18 @@
 import React from "react";
-import { NextPage, GetStaticProps } from "next";
-import axios from "axios";
+import { InferGetStaticPropsType, NextPage } from "next";
+import fetch from "node-fetch";
 import Layout from "components/Layout";
 import Header from "components/Header";
 import Nav from "components/Nav";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
-import { microCmsData } from "types/microCmsData";
+import { MicroCmsBlog } from "types/microCmsData";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
-export type Props = {
-  dataList: Array<microCmsData>;
-};
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Index: NextPage<Props> = ({ dataList }) => {
+const Index: NextPage<PageProps> = ({ posts }) => {
   return (
     <div className="index">
       <Layout title="Home | Next.js + TypeScript Example">
@@ -29,21 +27,27 @@ const Index: NextPage<Props> = ({ dataList }) => {
               className={Style.blog__list}
               component="ul"
             >
-              {dataList.map((dataList) => (
+              {posts.map((posts, index) => (
                 <Blog
-                  key={dataList.id}
-                  postId={`${dataList.id}`}
+                  key={index}
+                  postId={`${posts.id}`}
                   postTitle={
-                    dataList.title.length > 30
-                      ? dataList.title.slice(0, 30) + "…"
-                      : dataList.title
+                    posts.title.length > 30
+                      ? posts.title.slice(0, 30) + "…"
+                      : posts.title
                   }
-                  postDate={`${dataList.createdAt}`}
-                  postKv={`${dataList.kv.image.url}`}
-                  postTags={`${dataList.tag}`}
+                  postDate={`${posts.createdAt}`}
+                  postKv={`${posts.kv.image.url}`}
+                  postTags={`${posts.tag[0].tagTitle}`}
+                  postTagId={`${posts.tag[0].id}`}
                 />
               ))}
             </Box>
+            {/* {process.env.apiKeyCms}
+            <br></br>
+            {process.env.blogEndPoint}
+            <br></br>
+            {process.env.tagsEndPoint} */}
           </div>
         </div>
       </Layout>
@@ -51,18 +55,17 @@ const Index: NextPage<Props> = ({ dataList }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (): Promise<{
-  props: Props;
-}> => {
+export const getStaticProps = async () => {
   const key = {
-    headers: { "X-API-KEY": process.env.API_KEY as string },
+    headers: { "X-API-KEY": process.env.apiKeyCms as string },
   };
-  const res = await axios.get(process.env.END_POINT as string, key);
-  const data: Array<microCmsData> = await res.data.contents;
+  const blogUrl = process.env.blogEndPoint as string;
+  const data: MicroCmsBlog = await fetch(`${blogUrl}?offset=0&limit=100`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
   return {
-    props: {
-      dataList: data,
-    },
+    props: { posts: data.contents },
   };
 };
 
