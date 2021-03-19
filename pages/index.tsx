@@ -3,6 +3,7 @@ import { InferGetStaticPropsType, NextPage } from "next";
 import fetch from "node-fetch";
 import Layout from "components/Layout";
 import Header from "components/Header";
+import Footer from "components/Footer";
 import Nav from "components/Nav";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
@@ -50,6 +51,7 @@ const Index: NextPage<PageProps> = ({ posts }) => {
             {process.env.tagsEndPoint} */}
           </div>
         </div>
+        <Footer />
       </Layout>
     </div>
   );
