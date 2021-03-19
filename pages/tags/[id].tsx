@@ -1,12 +1,14 @@
 import React from "react";
 import { MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetServerSidePropsType } from "next";
+import fetch from "node-fetch";
 import Layout from "components/Layout";
+import Header from "components/Header";
+import Nav from "components/Nav";
 import Link from "next/link";
 import Title from "components/Title";
 
 export type StaticProps = {
-  postBody: string;
   errors?: string;
 };
 
@@ -17,6 +19,8 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord }) => {
     <>
       <div className="index">
         <Layout title="XXXX 記事一覧 | Next.js + TypeScript Example">
+          <Header />
+          <Nav />
           <Link href="/">
             <a className="link">ブログトップへ</a>
           </Link>
