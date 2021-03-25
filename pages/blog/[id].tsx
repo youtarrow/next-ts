@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import cheerio from "cheerio";
 import { MicroCmsData, MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import Layout from "components/Layout";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Nav from "components/Nav";
-import Style from "components/styles/style.module.scss";
+import BlogId from "components/styles/blog_id.module.scss";
 
 export type Props = {
   postBody: string;
@@ -18,6 +19,9 @@ export type Props = {
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const BlogDetail: NextPage<PageProps> = ({ posts }) => {
+  const $ = cheerio.load(posts.body);
+  const headings = $("h2, h3").toArray();
+
   const postBody = `${posts.body}`;
 
   return (
@@ -26,35 +30,57 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
         <Layout title={`${posts.title}`}>
           <Header />
           <Nav />
-          <div className={Style.subdirectory}>
-            <div className={Style.content}>
-              <div className={Style.content__head}>
-                <h2 className={Style.content__title}>{posts.title}</h2>
-                <div className={Style.tags}>
-                  <span className={Style.tags__icon}></span>
-                  <Link href={`/`}>
-                    <a className={Style.tags__item}>{posts.tag[0].tagTitle}</a>
-                  </Link>
+          <div className={BlogId.subdirectory}>
+            <div className={BlogId.content}>
+              <div className={BlogId.content__head}>
+                <h1 className={BlogId.content__title}>{posts.title}</h1>
+                <div className={BlogId.tags}>
+                  <span className={BlogId.tags__icon}></span>
+                  {/* <Link href={`${posts.tag[0].id}`}>
+                    <a className={BlogId.tags__item}>{posts.tag[0].tagTitle}</a>
+                  </Link> */}
                 </div>
               </div>
               <div
                 id="cmsPost"
-                className={Style.details}
+                className={BlogId.details}
                 dangerouslySetInnerHTML={{ __html: postBody }}
               ></div>
             </div>
-            <div className={Style.sideMenu}>
-              <ul className={Style.sideMenu__advertising}>
-                <li className={Style.sideMenu__advList}>
+            <div className={BlogId.sideMenu}>
+              <ul className={BlogId.sideMenu__advertising}>
+                <li className={BlogId.sideMenu__advList}>
                   <Image src="/300x300.png" width={300} height={300} />
                 </li>
               </ul>
-              <h3>テスト</h3>
-              <ul>
-                <li>リスト1</li>
-                <li>リスト2</li>
-                <li>リスト3</li>
-              </ul>
+              <div className={BlogId.sideMenu__contents}>
+                <ul className={BlogId.titleList}>
+                  {headings.map((data: any, index) => (
+                    <li key={index} className={BlogId.titleList__item}>
+                      {data.name === "h2" && (
+                        <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
+                          <a className={BlogId.titleList__link}>
+                            {data.children[0].data}
+                          </a>
+                        </Link>
+                      )}
+                      <ul className={BlogId.titleList__subList}>
+                        <li className={BlogId.titleList__item}>
+                          {data.name === "h3" && (
+                            <Link
+                              href={`/blog/${posts.id}/#${data.attribs.id}`}
+                            >
+                              <a className={BlogId.titleList__link}>
+                                {data.children[0].data}
+                              </a>
+                            </Link>
+                          )}
+                        </li>
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <Footer />
@@ -88,7 +114,9 @@ export const getStaticProps = async (context: any) => {
   const res = await fetch(`${blogUrl}/${id}`, key);
   const data: MicroCmsData = await res.json();
   return {
-    props: { posts: data },
+    props: {
+      posts: data,
+    },
   };
 };
 
