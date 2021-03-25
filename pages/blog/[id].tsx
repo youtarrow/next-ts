@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import cheerio from "cheerio";
 import { MicroCmsData, MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
