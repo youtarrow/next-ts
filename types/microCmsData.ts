@@ -37,7 +37,7 @@ export type MicroCmsBlog = {
   contents: MicroCmsData[];
 };
 
-export type microCmsTags = {
+export type MicroCmsTags = {
   contents: [
     {
       id: string;

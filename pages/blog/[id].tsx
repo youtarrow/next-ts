@@ -1,4 +1,5 @@
 import React from "react";
+import cheerio from "cheerio";
 import { MicroCmsData, MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import Layout from "components/Layout";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Nav from "components/Nav";
-import Style from "components/styles/style.module.scss";
+import article from "components/styles/article.module.scss";
 
 export type Props = {
   postBody: string;
@@ -18,6 +19,9 @@ export type Props = {
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const BlogDetail: NextPage<PageProps> = ({ posts }) => {
+  const $ = cheerio.load(posts.body);
+  const headings = $("h2, h3").toArray();
+
   const postBody = `${posts.body}`;
 
   return (
@@ -26,35 +30,55 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
         <Layout title={`${posts.title}`}>
           <Header />
           <Nav />
-          <div className={Style.subdirectory}>
-            <div className={Style.content}>
-              <div className={Style.content__head}>
-                <h2 className={Style.content__title}>{posts.title}</h2>
-                <div className={Style.tags}>
-                  <span className={Style.tags__icon}></span>
-                  <Link href={`/`}>
-                    <a className={Style.tags__item}>{posts.tag[0].tagTitle}</a>
-                  </Link>
+          <div className={article.subdirectory}>
+            <div className={article.content}>
+              <div className={article.content__head}>
+                <h1 className={article.content__title}>{posts.title}</h1>
+                <div className={article.tags}>
+                  <span className={article.tags__icon}></span>
+                  {posts.tag.map((posts, index) => (
+                    <Link key={index} href={`/tags/${posts.id}`}>
+                      <a className={article.tags__item}>{posts.tagTitle}</a>
+                    </Link>
+                  ))}
                 </div>
               </div>
               <div
                 id="cmsPost"
-                className={Style.details}
+                className={article.details}
                 dangerouslySetInnerHTML={{ __html: postBody }}
               ></div>
             </div>
-            <div className={Style.sideMenu}>
-              <ul className={Style.sideMenu__advertising}>
-                <li className={Style.sideMenu__advList}>
+            <div className={article.sideMenu}>
+              <ul className={article.sideMenu__advertising}>
+                <li className={article.sideMenu__advList}>
                   <Image src="/300x300.png" width={300} height={300} />
                 </li>
               </ul>
-              <h3>テスト</h3>
-              <ul>
-                <li>リスト1</li>
-                <li>リスト2</li>
-                <li>リスト3</li>
-              </ul>
+              <div className={article.sideMenu__contents}>
+                <ul className={article.titleList}>
+                  {headings.map((data: any, index) => (
+                    <li key={index} className={article.titleList__item}>
+                      {data.name === "h2" && (
+                        <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
+                          <a className={article.titleList__link}>
+                            {data.children[0].data}
+                          </a>
+                        </Link>
+                      )}
+                      {data.name === "h3" && (
+                        <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
+                          <a
+                            className={`${article.titleList__link} ${article.titleList__subLink}`}
+                          >
+                            {data.children[0].data}
+                          </a>
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <Footer />
@@ -69,7 +93,7 @@ export const getStaticPaths = async () => {
     headers: { "X-API-KEY": process.env.apiKeyCms as string },
   };
   const blogUrl = process.env.blogEndPoint as string;
-  const data: MicroCmsBlog = await fetch(blogUrl, key)
+  const data: MicroCmsBlog = await fetch(`${blogUrl}?offset=0&limit=100`, key)
     .then((res) => res.json())
     .catch(() => null);
   const paths = data.contents.map((content: any) => `/blog/${content.id}`);
@@ -88,7 +112,9 @@ export const getStaticProps = async (context: any) => {
   const res = await fetch(`${blogUrl}/${id}`, key);
   const data: MicroCmsData = await res.json();
   return {
-    props: { posts: data },
+    props: {
+      posts: data,
+    },
   };
 };
 

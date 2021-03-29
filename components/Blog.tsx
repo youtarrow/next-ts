@@ -37,7 +37,7 @@ export const Blog: NextPage<Props> = (props) => {
 
   return (
     <>
-      <Card className={`${classes.root} ${Style.iteme}`} component="li">
+      <Card className={`${classes.root} ${Style.item}`} component="li">
         <Link href={`/blog/${props.postId}`}>
           <a>
             <CardActionArea>
