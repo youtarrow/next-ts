@@ -44,11 +44,6 @@ const Index: NextPage<PageProps> = ({ posts }) => {
                 />
               ))}
             </Box>
-            {/* {process.env.apiKeyCms}
-            <br></br>
-            {process.env.blogEndPoint}
-            <br></br>
-            {process.env.tagsEndPoint} */}
           </div>
         </div>
         <Footer />

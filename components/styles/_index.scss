@@ -32,22 +32,3 @@ html {
   text-align: center;
   font-size: 14px;
 }
-
-.tags {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 16px;
-  margin: 5px 0;
-  &__icon {
-    display: inline-block;
-    background: url(/tags.svg) no-repeat center;
-    background-size: contain;
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
-  }
-}

@@ -9,7 +9,7 @@ import Layout from "components/Layout";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Nav from "components/Nav";
-import BlogId from "components/styles/blog_id.module.scss";
+import article from "components/styles/article.module.scss";
 
 export type Props = {
   postBody: string;
@@ -30,53 +30,51 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
         <Layout title={`${posts.title}`}>
           <Header />
           <Nav />
-          <div className={BlogId.subdirectory}>
-            <div className={BlogId.content}>
-              <div className={BlogId.content__head}>
-                <h1 className={BlogId.content__title}>{posts.title}</h1>
-                <div className={BlogId.tags}>
-                  <span className={BlogId.tags__icon}></span>
-                  {/* <Link href={`${posts.tag[0].id}`}>
-                    <a className={BlogId.tags__item}>{posts.tag[0].tagTitle}</a>
-                  </Link> */}
+          <div className={article.subdirectory}>
+            <div className={article.content}>
+              <div className={article.content__head}>
+                <h1 className={article.content__title}>{posts.title}</h1>
+                <div className={article.tags}>
+                  <span className={article.tags__icon}></span>
+                  {posts.tag.map((posts, index) => (
+                    <Link key={index} href={`/tags/${posts.id}`}>
+                      <a className={article.tags__item}>{posts.tagTitle}</a>
+                    </Link>
+                  ))}
                 </div>
               </div>
               <div
                 id="cmsPost"
-                className={BlogId.details}
+                className={article.details}
                 dangerouslySetInnerHTML={{ __html: postBody }}
               ></div>
             </div>
-            <div className={BlogId.sideMenu}>
-              <ul className={BlogId.sideMenu__advertising}>
-                <li className={BlogId.sideMenu__advList}>
+            <div className={article.sideMenu}>
+              <ul className={article.sideMenu__advertising}>
+                <li className={article.sideMenu__advList}>
                   <Image src="/300x300.png" width={300} height={300} />
                 </li>
               </ul>
-              <div className={BlogId.sideMenu__contents}>
-                <ul className={BlogId.titleList}>
+              <div className={article.sideMenu__contents}>
+                <ul className={article.titleList}>
                   {headings.map((data: any, index) => (
-                    <li key={index} className={BlogId.titleList__item}>
+                    <li key={index} className={article.titleList__item}>
                       {data.name === "h2" && (
                         <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
-                          <a className={BlogId.titleList__link}>
+                          <a className={article.titleList__link}>
                             {data.children[0].data}
                           </a>
                         </Link>
                       )}
-                      <ul className={BlogId.titleList__subList}>
-                        <li className={BlogId.titleList__item}>
-                          {data.name === "h3" && (
-                            <Link
-                              href={`/blog/${posts.id}/#${data.attribs.id}`}
-                            >
-                              <a className={BlogId.titleList__link}>
-                                {data.children[0].data}
-                              </a>
-                            </Link>
-                          )}
-                        </li>
-                      </ul>
+                      {data.name === "h3" && (
+                        <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
+                          <a
+                            className={`${article.titleList__link} ${article.titleList__subLink}`}
+                          >
+                            {data.children[0].data}
+                          </a>
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -95,7 +93,7 @@ export const getStaticPaths = async () => {
     headers: { "X-API-KEY": process.env.apiKeyCms as string },
   };
   const blogUrl = process.env.blogEndPoint as string;
-  const data: MicroCmsBlog = await fetch(blogUrl, key)
+  const data: MicroCmsBlog = await fetch(`${blogUrl}?offset=0&limit=100`, key)
     .then((res) => res.json())
     .catch(() => null);
   const paths = data.contents.map((content: any) => `/blog/${content.id}`);

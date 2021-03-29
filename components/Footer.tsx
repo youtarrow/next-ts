@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     title: {
-      display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
       },
