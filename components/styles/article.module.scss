@@ -1,3 +1,5 @@
+@import "./tagList";
+
 // pages/blog/[id].tsx
 .subdirectory {
   display: -webkit-box;
@@ -122,40 +124,6 @@
       padding: 5px 5px 5px 18px;
       color: #6b6969;
       &:before {
-        content: none;
-      }
-    }
-  }
-}
-
-.tags {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 16px;
-  margin: 5px 0;
-  &__icon {
-    display: inline-block;
-    background: url(/tags.svg) no-repeat center;
-    background-size: contain;
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
-  }
-  &__item {
-    margin-right: 8px;
-    &::after {
-      content: ",";
-      display: inline-block;
-      width: 5px;
-      height: 100%;
-      margin-left: 2px;
-    }
-    &:last-child {
-      &::after {
         content: none;
       }
     }
