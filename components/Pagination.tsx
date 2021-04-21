@@ -27,10 +27,9 @@ export const PageList: React.FC<Props> = ({ totalCount }) => {
     <div style={{ textAlign: "center" }}>
       <Pagination
         count={totalNation}
+        page={2}
         variant="outlined"
         shape="rounded"
-        page={2}
-        renderItem={(item) => <PaginationItem />}
       />
     </div>
   );
