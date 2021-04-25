@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
 import fetch from "node-fetch";
-import { PageList } from "components/Pagination";
+import { useRouter } from "next/router";
+import { Pagination } from "@material-ui/lab";
 import Header from "components/Header";
 import Nav from "components/Nav";
 import Layout from "components/Layout";
@@ -12,11 +13,22 @@ import Box from "@material-ui/core/Box";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
-const PER_PAGE = 6;
+const PAGE = 6;
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
+  const router = useRouter();
+  const offset = router.query.offset
+    ? Number.parseInt(String(router.query.offset), 10)
+    : 1;
+
+  const handleChangePage = useCallback(
+    (_: React.ChangeEvent<unknown>, page: number) => {
+      void router.push(`/blog/page/${page}`);
+    },
+    [router]
+  );
   return (
     <div className="index">
       <Layout title="Home | Next.js + TypeScript Example">
@@ -48,7 +60,14 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
               ))}
             </Box>
           </div>
-          <PageList totalCount={totalCount} />
+          <Pagination
+            count={PAGE}
+            variant="outlined"
+            shape="rounded"
+            color="secondary"
+            page={offset}
+            onChange={handleChangePage}
+          />
         </div>
         <Footer />
       </Layout>
@@ -67,7 +86,7 @@ export const getStaticPaths = async () => {
 
   const range = (start: number, end: number) =>
     [...Array(end - start + 1)].map((_, i) => start + i);
-  const paths = range(1, Math.ceil(data.totalCount / PER_PAGE)).map(
+  const paths = range(1, Math.ceil(data.totalCount / PAGE)).map(
     (resNum) => `/blog/page/${resNum}`
   );
 
