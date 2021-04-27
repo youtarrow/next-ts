@@ -35,6 +35,9 @@ export type MicroCmsData = {
 
 export type MicroCmsBlog = {
   contents: MicroCmsData[];
+  totalCount: number;
+  offset: number;
+  limit: number;
 };
 
 export type MicroCmsTags = {
