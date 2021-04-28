@@ -1,6 +1,36 @@
-# TypeScript Next.js example
+## URL
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+https://next-ts-youtarrow.vercel.app/
+
+## Overview
+
+Create a blog site using Next.js and TypeScript.
+
+## Framework
+
+https://reactjs.org/
+https://nextjs.org/
+https://www.typescriptlang.org/
+https://material-ui.com/
+https://vercel.com
+https://microcms.io/
+
+## Development Environment
+
+・macOS
+・React@17.0.1
+・typescript@4.2.3
+・Material-UI
+・Vercel
+・MicroCMS
+
+## Usage
+
+Git clone
+
+```
+https://github.com/youtarrow/next-ts.git
+```
 
 ## Deploy your own
 
@@ -39,4 +69,3 @@ When we run `next dev` the next time, Next.js will start looking for any `.ts` o
 Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
 
 A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
-# next-ts
