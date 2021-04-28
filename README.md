@@ -8,24 +8,24 @@ Create a blog site using Next.js and TypeScript.
 
 ## Framework
 
-<ul>
-    <li><a href="https://reactjs.org/" target="_blank">https://reactjs.org/</a></li>
-    <li><a href="https://nextjs.org/" target="_blank">https://nextjs.org/</a></li>
-    <li><a href="https://www.typescriptlang.org/" target="_blank">https://www.typescriptlang.org/</a></li>
-    <li><a href="https://material-ui.com/" target="_blank">https://material-ui.com/</a></li>
-    <li><a href="https://vercel.com" target="_blank">https://vercel.com</a></li>
-    <li><a href="https://microcms.io/" target="_blank">https://microcms.io/</a></li>
-</ul>
+<div align="center">
+    <a href="https://reactjs.org/" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116357817-e6931a80-a837-11eb-969c-c5cf8e7a9e9b.png" height="90"></a>&nbsp;
+    <a href="https://nextjs.org/" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116357813-e6931a80-a837-11eb-8a37-79fbe047eb7a.png" height="90"></a>&nbsp;
+    <a href="https://www.typescriptlang.org/" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116357821-e72bb100-a837-11eb-9dfa-965308f558b1.png" height="90"></a>&nbsp;
+    <a href="https://material-ui.com/" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116357812-e561ed80-a837-11eb-9261-47fcbc4a0239.png" height="90"></a>&nbsp;
+    <a href="https://vercel.com" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116357822-e72bb100-a837-11eb-8a07-19fa8946980f.png" height="90"></a>&nbsp;
+    <a href="https://microcms.io/" target="_blank"><img src="https://user-images.githubusercontent.com/59188955/116362030-95395a00-a83c-11eb-89bc-004b39ee9930.png" height="90"></a>
+</div>
 
 ## Development Environment
 
 <ul>
-    <li>・macOS</li>
-    <li>・React@17.0.1</li>
-    <li>・typescript@4.2.3</li>
-    <li>・Material-UI</li>
-    <li>・Vercel</li>
-    <li>・MicroCMS</li>
+    <li>macOS</li>
+    <li>React@17.0.1</li>
+    <li>typescript@4.2.3</li>
+    <li>Material-UI</li>
+    <li>Vercel</li>
+    <li>MicroCMS</li>
 </ul>
 
 ## Usage
