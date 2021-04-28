@@ -8,21 +8,25 @@ Create a blog site using Next.js and TypeScript.
 
 ## Framework
 
-https://reactjs.org/
-https://nextjs.org/
-https://www.typescriptlang.org/
-https://material-ui.com/
-https://vercel.com
-https://microcms.io/
+<ul>
+    <li><a href="https://reactjs.org/" target="_blank">https://reactjs.org/</a></li>
+    <li><a href="https://nextjs.org/" target="_blank">https://nextjs.org/</a></li>
+    <li><a href="https://www.typescriptlang.org/" target="_blank">https://www.typescriptlang.org/</a></li>
+    <li><a href="https://material-ui.com/" target="_blank">https://material-ui.com/</a></li>
+    <li><a href="https://vercel.com" target="_blank">https://vercel.com</a></li>
+    <li><a href="https://microcms.io/" target="_blank">https://microcms.io/</a></li>
+</ul>
 
 ## Development Environment
 
-・macOS
-・React@17.0.1
-・typescript@4.2.3
-・Material-UI
-・Vercel
-・MicroCMS
+<ul>
+    <li>・macOS</li>
+    <li>・React@17.0.1</li>
+    <li>・typescript@4.2.3</li>
+    <li>・Material-UI</li>
+    <li>・Vercel</li>
+    <li>・MicroCMS</li>
+</ul>
 
 ## Usage
 
