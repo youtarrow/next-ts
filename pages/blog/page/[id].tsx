@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { Pagination } from "@material-ui/lab/";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
 import { MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
@@ -15,13 +16,30 @@ import Style from "components/styles/style.module.scss";
 
 const PER_PAGE = 6;
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        marginTop: theme.spacing(2),
+      },
+    },
+    ul: {
+      "& > *": {
+        justifyContent: "center",
+      },
+    },
+  })
+);
+
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
+  const classes = useStyles();
   const router = useRouter();
   const pageId = router.query.id
     ? Number.parseInt(String(router.query.id), 10)
     : 1;
+  console.log(router.query.id);
 
   const handleChange = useCallback(
     (_: React.ChangeEvent<unknown>, page: number) => {
@@ -61,13 +79,16 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
               ))}
             </Box>
           </div>
-          <Pagination
-            variant="outlined"
-            shape="rounded"
-            count={Math.ceil(totalCount / PER_PAGE)}
-            page={pageId}
-            onChange={handleChange}
-          />
+          <div className={classes.root}>
+            <Pagination
+              className={classes.ul}
+              variant="outlined"
+              shape="rounded"
+              count={Math.ceil(totalCount / PER_PAGE)}
+              page={pageId}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <Footer />
       </Layout>

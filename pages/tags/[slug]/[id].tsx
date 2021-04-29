@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { Pagination } from "@material-ui/lab/";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { useRouter } from "next/router";
 import { MicroCmsBlog } from "types/microCmsData";
 import { NextPage, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
@@ -10,16 +13,47 @@ import Nav from "components/Nav";
 import Link from "next/link";
 import TagsLo from "components/styles/tags.module.scss";
 
+const PER_PAGE = 6;
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        marginTop: theme.spacing(2),
+      },
+    },
+    ul: {
+      "& > *": {
+        justifyContent: "center",
+      },
+    },
+  })
+);
+
 export type StaticProps = {
   errors?: string;
 };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Tags: NextPage<PageProps> = ({ posts, keyWord }) => {
-  const name: any = posts.find((posts) => {
-    return posts.tag[0].id === keyWord;
-  });
+const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
+  const classes = useStyles();
+  const router = useRouter();
+
+  const pageNum = router.query.id
+    ? Number.parseInt(String(router.query.id), 10)
+    : 1;
+
+  console.log(router);
+
+  const handleChange = useCallback(
+    (_: React.ChangeEvent<unknown>, page: number) => {
+      void router.push(`/tags/${keyWord}/${page}`);
+    },
+    [router]
+  );
+
+  console.log(keyWord);
 
   return (
     <>
@@ -30,7 +64,7 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord }) => {
           <div className={TagsLo.subdirectory}>
             <div className={TagsLo.sideMenu}>
               <h1 className={TagsLo.sideMenu__title}>
-                <span>{name.tag[0].tagTitle}</span>
+                <span>{keyWord}</span>
               </h1>
               <div className={TagsLo.profile}>
                 <h2 className={TagsLo.profile__title}>▼ Profile</h2>
@@ -92,6 +126,16 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord }) => {
                   </li>
                 ))}
               </ul>
+              <div className={classes.root}>
+                <Pagination
+                  className={classes.ul}
+                  variant="outlined"
+                  shape="rounded"
+                  count={Math.ceil(totalCount / PER_PAGE)}
+                  page={pageNum}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </div>
           <Footer />
@@ -102,7 +146,7 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord }) => {
 };
 
 export const getServerSideProps = async (context: any) => {
-  const keyword = context.query.id;
+  const keyword = context.query.slug;
 
   const key = {
     headers: { "X-API-KEY": process.env.apiKeyCms as string },
@@ -119,6 +163,7 @@ export const getServerSideProps = async (context: any) => {
     props: {
       posts: data.contents,
       keyWord: keyword,
+      totalCount: data.totalCount,
     },
   };
 };
