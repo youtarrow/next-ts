@@ -39,7 +39,6 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
   const pageId = router.query.id
     ? Number.parseInt(String(router.query.id), 10)
     : 1;
-  console.log(router.query.id);
 
   const handleChange = useCallback(
     (_: React.ChangeEvent<unknown>, page: number) => {
