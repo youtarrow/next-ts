@@ -52,4 +52,7 @@ export type MicroCmsTags = {
       tagType: number;
     }
   ];
+  totalCount: number;
+  offset: number;
+  limit: number;
 };

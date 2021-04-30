@@ -57,7 +57,7 @@ export const Blog: NextPage<Props> = (props) => {
         </Link>
         <CardActions>
           タグ：
-          <Link href={`/tags/${props.postTagId}`}>
+          <Link href={`/tags/${props.postTagId}/1/`}>
             <a>
               <Button size="small" color="primary">
                 {props.postTags}
