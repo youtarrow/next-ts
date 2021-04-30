@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Pagination } from "@material-ui/lab/";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
-import { MicroCmsBlog } from "types/microCmsData";
+import { MicroCmsBlog, MicroCmsTags } from "types/microCmsData";
 import { NextPage, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import fetch from "node-fetch";
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) =>
 
 export type StaticProps = {
   errors?: string;
+  tags: MicroCmsTags;
 };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -40,11 +41,13 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
   const classes = useStyles();
   const router = useRouter();
 
+  const name: any = posts.filter((posts) => {
+    return posts.tag[0].id === keyWord;
+  });
+
   const pageNum = router.query.id
     ? Number.parseInt(String(router.query.id), 10)
     : 1;
-
-  console.log(router);
 
   const handleChange = useCallback(
     (_: React.ChangeEvent<unknown>, page: number) => {
@@ -52,8 +55,6 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
     },
     [router]
   );
-
-  console.log(keyWord);
 
   return (
     <>
@@ -64,7 +65,7 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
           <div className={TagsLo.subdirectory}>
             <div className={TagsLo.sideMenu}>
               <h1 className={TagsLo.sideMenu__title}>
-                <span>{keyWord}</span>
+                <span>{name[0].tag[0].tagTitle}</span>
               </h1>
               <div className={TagsLo.profile}>
                 <h2 className={TagsLo.profile__title}>▼ Profile</h2>
@@ -98,14 +99,13 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
               </div>
             </div>
             <div className={TagsLo.content}>
-              {/* <Title title={`${keyWord}`} /> */}
               <ul className={TagsLo.list}>
                 {posts.map((posts, index) => (
                   <li key={index} className={TagsLo.list__item}>
                     <div className={TagsLo.tags}>
                       <span className={TagsLo.tags__icon}></span>
                       {posts.tag.map((posts, index) => (
-                        <Link key={index} href={`/tags/${posts.id}`}>
+                        <Link key={index} href={`/tags/${posts.id}/1/`}>
                           <a
                             className={`${TagsLo.tags__item} ${TagsLo.tags__item__option}`}
                           >
@@ -146,14 +146,19 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
 };
 
 export const getServerSideProps = async (context: any) => {
-  const keyword = context.query.slug;
+  const pageVal = context.query;
+  const keyword = pageVal.slug;
+  const id = pageVal.id;
 
   const key = {
     headers: { "X-API-KEY": process.env.apiKeyCms as string },
   };
   const blogUrl = process.env.blogEndPoint as string;
+
   const data: MicroCmsBlog = await fetch(
-    `${blogUrl}?offset=0&limit=100&filters=tag[contains]${keyword}`,
+    `${blogUrl}?offset=${
+      (id - 1) * 6
+    }&limit=100&filters=tag[contains]${keyword}`,
     key
   )
     .then((res) => res.json())
