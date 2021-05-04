@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Nav: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  // @ts-ignore TS6133: 'event' is declared but its value is never read.
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
