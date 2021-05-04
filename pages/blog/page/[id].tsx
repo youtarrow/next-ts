@@ -14,6 +14,11 @@ import Box from "@material-ui/core/Box";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
+export type StaticProps = {
+  errors?: string;
+  value: number;
+};
+
 const PER_PAGE = 6;
 
 const useStyles = makeStyles((theme) =>
@@ -51,7 +56,7 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
     <div className="index">
       <Layout title="Home | Next.js + TypeScript Example">
         <Header />
-        <Nav />
+        <Nav value={1} />
         <div className="blog">
           <div className="inner">
             <Title title={"Contents"} />
