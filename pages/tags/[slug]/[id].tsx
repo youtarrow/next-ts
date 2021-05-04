@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) =>
 export type StaticProps = {
   errors?: string;
   tags: MicroCmsTags;
+  value: number;
 };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -61,7 +62,7 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
       <div className="index">
         <Layout title="XXXX 記事一覧 | Next.js + TypeScript Example">
           <Header />
-          <Nav />
+          <Nav value={1} />
           <div className={TagsLo.subdirectory}>
             <div className={TagsLo.sideMenu}>
               <h1 className={TagsLo.sideMenu__title}>

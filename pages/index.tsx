@@ -11,6 +11,10 @@ import { MicroCmsBlog } from "types/microCmsData";
 import Title from "components/Title";
 import Style from "components/styles/style.module.scss";
 
+export type StaticProps = {
+  value: number;
+};
+
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Index: NextPage<PageProps> = ({ posts }) => {
@@ -18,7 +22,7 @@ const Index: NextPage<PageProps> = ({ posts }) => {
     <div className="index">
       <Layout title="Home | Next.js + TypeScript Example">
         <Header />
-        <Nav />
+        <Nav value={0} />
         <div className="blog">
           <div className="inner">
             <Title title={"Contents"} />

@@ -14,6 +14,7 @@ import article from "components/styles/article.module.scss";
 export type Props = {
   postBody: string;
   errors?: string;
+  value: number;
 };
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
@@ -29,7 +30,7 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
       <div className="index">
         <Layout title={`${posts.title}`}>
           <Header />
-          <Nav />
+          <Nav value={1} />
           <div className={article.subdirectory}>
             <div className={article.content}>
               <div className={article.content__head}>
@@ -37,7 +38,7 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
                 <div className={article.tags}>
                   <span className={article.tags__icon}></span>
                   {posts.tag.map((posts, index) => (
-                    <Link key={index} href={`/tags/${posts.id}`}>
+                    <Link key={index} href={`/tags/${posts.id}/1/`}>
                       <a className={article.tags__item}>{posts.tagTitle}</a>
                     </Link>
                   ))}
