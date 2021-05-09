@@ -62,7 +62,10 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
   return (
     <>
       <div className="index">
-        <Layout title="XXXX 記事一覧 | Next.js + TypeScript Example">
+        <Layout
+          title={`タグ一覧 ${name[0].tag[0].tagTitle} | Yu Ecchuya, Portfolio Site`}
+          description={`タグ一覧 ${name[0].tag[0].tagTitle} | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+        >
           <Header />
           <Nav value={1} />
           <Typography component="div" className={Style.subdirectory}>

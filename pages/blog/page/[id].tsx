@@ -54,7 +54,10 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
 
   return (
     <div className="index">
-      <Layout title="Home | Next.js + TypeScript Example">
+      <Layout
+        title={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site`}
+        description={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+      >
         <Header />
         <Nav value={1} />
         <Typography component="div" className="blog">

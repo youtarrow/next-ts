@@ -29,7 +29,10 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
   return (
     <>
       <div className="index">
-        <Layout title={`${posts.title}`}>
+        <Layout
+          title={`${posts.title} | Yu Ecchuya, Portfolio Site`}
+          description={`${posts.meta.metaDescription}`}
+        >
           <Header />
           <Nav value={1} />
           <Typography component="div" className={Style.subdirectory}>

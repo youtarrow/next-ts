@@ -12,7 +12,10 @@ export type Props = {};
 const Profile: React.FC = () => {
   return (
     <div className="index">
-      <Layout title={`Profile | Next.js + TypeScript Example`}>
+      <Layout
+        title={`Profile | Yu Ecchuya, Portfolio Site`}
+        description={`Profile | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。 私のプロフィールを掲載しています。`}
+      >
         <Header />
         <Nav value={2} />
         <React.Fragment>
