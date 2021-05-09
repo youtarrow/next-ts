@@ -11,8 +11,8 @@ import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
-import Title from "components/Title";
-import Style from "components/styles/style.module.scss";
+import Typography from "@material-ui/core/Typography";
+// import Style from "components/styles/articles.module.scss";
 
 export type StaticProps = {
   errors?: string;
@@ -54,16 +54,18 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
 
   return (
     <div className="index">
-      <Layout title="Home | Next.js + TypeScript Example">
+      <Layout
+        title={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site`}
+        description={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+      >
         <Header />
         <Nav value={1} />
-        <div className="blog">
+        <Typography component="div" className="blog">
           <div className="inner">
-            <Title title={"Contents"} />
             <Box
               display="flex"
               flexWrap="wrap"
-              className={Style.blog__list}
+              className="blog__list"
               component="ul"
             >
               {posts.map((posts, index) => (
@@ -93,7 +95,7 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </Typography>
         <Footer />
       </Layout>
     </div>

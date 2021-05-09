@@ -19,7 +19,6 @@ export type MicroCmsData = {
   ];
   meta: {
     fieldId: string;
-    metaTitle: string;
     metaDescription: string;
   };
   kv: {

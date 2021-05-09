@@ -11,7 +11,10 @@ import Footer from "components/Footer";
 const Index: React.FC = () => {
   return (
     <div className="home" style={{ paddingTop: "50px" }}>
-      <Layout title="Home | Next.js + TypeScript Example">
+      <Layout
+        title="Home | Yu Ecchuya, Portfolio Site"
+        description={`Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+      >
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="md">

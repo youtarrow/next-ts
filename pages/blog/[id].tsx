@@ -9,7 +9,8 @@ import Layout from "components/Layout";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Nav from "components/Nav";
-import article from "components/styles/article.module.scss";
+import Typography from "@material-ui/core/Typography";
+import Style from "components/styles/details.module.scss";
 
 export type Props = {
   postBody: string;
@@ -28,41 +29,44 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
   return (
     <>
       <div className="index">
-        <Layout title={`${posts.title}`}>
+        <Layout
+          title={`${posts.title} | Yu Ecchuya, Portfolio Site`}
+          description={`${posts.meta.metaDescription}`}
+        >
           <Header />
           <Nav value={1} />
-          <div className={article.subdirectory}>
-            <div className={article.content}>
-              <div className={article.content__head}>
-                <h1 className={article.content__title}>{posts.title}</h1>
-                <div className={article.tags}>
-                  <span className={article.tags__icon}></span>
+          <Typography component="div" className={Style.subdirectory}>
+            <div className={Style.content}>
+              <div className={Style.content__head}>
+                <h1 className={Style.content__title}>{posts.title}</h1>
+                <div className={Style.tags}>
+                  <span className={Style.tags__icon}></span>
                   {posts.tag.map((posts, index) => (
                     <Link key={index} href={`/tags/${posts.id}/1/`}>
-                      <a className={article.tags__item}>{posts.tagTitle}</a>
+                      <a className={Style.tags__item}>{posts.tagTitle}</a>
                     </Link>
                   ))}
                 </div>
               </div>
               <div
                 id="cmsPost"
-                className={article.details}
+                className={Style.details}
                 dangerouslySetInnerHTML={{ __html: postBody }}
               ></div>
             </div>
-            <div className={article.sideMenu}>
-              <ul className={article.sideMenu__advertising}>
-                <li className={article.sideMenu__advList}>
+            <div className={Style.sideMenu}>
+              <ul className={Style.sideMenu__advertising}>
+                <li className={Style.sideMenu__advList}>
                   <Image src="/300x300.png" width={300} height={300} />
                 </li>
               </ul>
-              <div className={article.sideMenu__contents}>
-                <ul className={article.titleList}>
+              <div className={Style.sideMenu__contents}>
+                <ul className={Style.titleList}>
                   {headings.map((data: any, index) => (
-                    <li key={index} className={article.titleList__item}>
+                    <li key={index} className={Style.titleList__item}>
                       {data.name === "h2" && (
                         <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
-                          <a className={article.titleList__link}>
+                          <a className={Style.titleList__link}>
                             {data.children[0].data}
                           </a>
                         </Link>
@@ -70,7 +74,7 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
                       {data.name === "h3" && (
                         <Link href={`/blog/${posts.id}/#${data.attribs.id}`}>
                           <a
-                            className={`${article.titleList__link} ${article.titleList__subLink}`}
+                            className={`${Style.titleList__link} ${Style.titleList__subLink}`}
                           >
                             {data.children[0].data}
                           </a>
@@ -81,7 +85,7 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
                 </ul>
               </div>
             </div>
-          </div>
+          </Typography>
           <Footer />
         </Layout>
       </div>

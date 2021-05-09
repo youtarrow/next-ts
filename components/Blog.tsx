@@ -10,7 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Style from "components/styles/style.module.scss";
+import Style from "components/styles/blog.module.scss";
 
 const useStyles = makeStyles({
   root: {
@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   },
   media: {
     height: 140,
+  },
+  titleHeight: {
+    height: 68,
   },
 });
 
@@ -48,7 +51,12 @@ export const Blog: NextPage<Props> = (props) => {
               />
               <CardContent>
                 <p>{`${dayjs(props.postDate).format("YYYY年MM月DD日")}`}</p>
-                <Typography gutterBottom variant="h6" component="h3">
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="h3"
+                  className={classes.titleHeight}
+                >
                   {props.postTitle}
                 </Typography>
               </CardContent>
