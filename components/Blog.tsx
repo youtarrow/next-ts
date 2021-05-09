@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  titleHeight: {
+    height: 68,
+  },
 });
 
 export type Props = {
@@ -48,7 +51,12 @@ export const Blog: NextPage<Props> = (props) => {
               />
               <CardContent>
                 <p>{`${dayjs(props.postDate).format("YYYY年MM月DD日")}`}</p>
-                <Typography gutterBottom variant="h6" component="h3">
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="h3"
+                  className={classes.titleHeight}
+                >
                   {props.postTitle}
                 </Typography>
               </CardContent>
