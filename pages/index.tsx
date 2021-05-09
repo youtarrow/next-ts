@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import SiteTitle from "components/SiteTitle";
 import TopMenu from "components/TopMenu";
+import FooterNav from "components/FooterNav";
+import Footer from "components/Footer";
 
 const Index: React.FC = () => {
   return (
@@ -19,6 +21,8 @@ const Index: React.FC = () => {
             </Typography>
           </Container>
         </React.Fragment>
+        <FooterNav />
+        <Footer />
       </Layout>
     </div>
   );

@@ -19,7 +19,7 @@ export const SiteTitle: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div className={Style.SiteTitle}>
+    <div className={Style.siteTitle}>
       <Grid
         container
         direction="row"

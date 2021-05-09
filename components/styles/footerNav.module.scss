@@ -1,0 +1,28 @@
+// FooterNav.tsx
+.footerNav {
+  .listItem {
+    a {
+      display: block;
+      padding: 0 15px;
+      border-right: 1px solid gray;
+    }
+    &:last-child {
+      a {
+        border-right: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .footerNav {
+    .listItem {
+      width: 100%;
+      text-align: center;
+      a {
+        padding: 10px;
+        border-right: none;
+      }
+    }
+  }
+}

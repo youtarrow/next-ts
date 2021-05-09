@@ -25,7 +25,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <Typography className={classes.title} variant="body1" noWrap>
-        Material-UI
+        © Yu Ecchuya
       </Typography>
     </footer>
   );

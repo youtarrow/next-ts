@@ -6,6 +6,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Link from "next/link";
+import Style from "components/styles/topMenu.module.scss";
 
 export type Props = {};
 
@@ -18,11 +20,10 @@ const useStyles = makeStyles({
     margin: "0 2px",
     transform: "scale(0.8)",
   },
-  title: {
-    fontSize: 14,
-  },
   pos: {
     marginBottom: 12,
+    fontWeight: "bold",
+    fontSize: 25,
   },
 });
 
@@ -30,7 +31,7 @@ export const TopMenu: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={Style.topMenu}>
       <Grid
         container
         direction="row"
@@ -45,12 +46,13 @@ export const TopMenu: React.FC = () => {
                 Blog
               </Typography>
               <Typography variant="body2" component="p">
-                技術的なブログを記載しています。<br></br>
-                主に個人開発で得た知識などを書いています。
+                主に個人開発で得た知識などを書いています。<br></br>&nbsp;
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Link href={`/blog/page/1/`}>
+                <Button size="small">Learn More</Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -66,7 +68,9 @@ export const TopMenu: React.FC = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Link href={`/profile/`}>
+                <Button size="small">Learn More</Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -77,12 +81,14 @@ export const TopMenu: React.FC = () => {
                 Contact
               </Typography>
               <Typography variant="body2" component="p">
-                ご連絡等はこちらでお願いいたします。
+                ご連絡等はこちらからお願いいたします。
                 <br></br>&nbsp;
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Link href={`/contact/`}>
+                <Button size="small">Learn More</Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
