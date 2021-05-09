@@ -10,8 +10,10 @@ import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Nav from "components/Nav";
+import Title from "components/Title";
 import Link from "next/link";
-import TagsLo from "components/styles/tags.module.scss";
+import Typography from "@material-ui/core/Typography";
+import Style from "components/styles/tags.module.scss";
 
 const PER_PAGE = 6;
 
@@ -63,64 +65,60 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
         <Layout title="XXXX 記事一覧 | Next.js + TypeScript Example">
           <Header />
           <Nav value={1} />
-          <div className={TagsLo.subdirectory}>
-            <div className={TagsLo.sideMenu}>
-              <h1 className={TagsLo.sideMenu__title}>
-                <span>{name[0].tag[0].tagTitle}</span>
-              </h1>
-              <div className={TagsLo.profile}>
-                <h2 className={TagsLo.profile__title}>▼ Profile</h2>
-                <ul className={TagsLo.myName}>
-                  <li className={TagsLo.myName__item}>
-                    <figure className={TagsLo.myName__figure}>
+          <Typography component="div" className={Style.subdirectory}>
+            <div className={Style.sideMenu}>
+              <div className={Style.profile}>
+                <h2 className={Style.profile__title}>▼ Profile</h2>
+                <ul className={Style.myName}>
+                  <li className={Style.myName__item}>
+                    <figure className={Style.myName__figure}>
                       <Image src="/300x300.png" width={100} height={100} />
                     </figure>
                   </li>
-                  <li className={TagsLo.myName__item}>My Name</li>
+                  <li className={Style.myName__item}>My Name</li>
                 </ul>
-                <div className={TagsLo.sns}>
+                <div className={Style.sns}>
                   <Link href="/">
-                    <a className={TagsLo.sns__item}>
+                    <a className={Style.sns__item}>
                       <Image src="/github.svg" width={100} height={100} />
                     </a>
                   </Link>
                   <Link href="/">
-                    <a className={TagsLo.sns__item}>
+                    <a className={Style.sns__item}>
                       <Image src="/twitter.svg" width={100} height={100} />
                     </a>
                   </Link>
                 </div>
-                <p className={TagsLo.profile__text}>
+                <p className={Style.profile__text}>
                   テストテストテストテスト テスト テストテスト テスト テスト
                   テスト テスト テスト テスト
                 </p>
-                <p className={TagsLo.profile__link}>
+                <p className={Style.profile__link}>
                   <a href="">Contact Us</a>
                 </p>
               </div>
             </div>
-            <div className={TagsLo.content}>
-              <ul className={TagsLo.list}>
+            <div className={Style.content}>
+              <Title title={`${name[0].tag[0].tagTitle}`} />
+              <ul className={Style.list}>
                 {posts.map((posts, index) => (
-                  <li key={index} className={TagsLo.list__item}>
-                    <div className={TagsLo.tags}>
-                      <span className={TagsLo.tags__icon}></span>
+                  <li key={index} className={Style.list__item}>
+                    <div className={Style.tags}>
+                      <span className={Style.tags__icon}></span>
                       {posts.tag.map((posts, index) => (
                         <Link key={index} href={`/tags/${posts.id}/1/`}>
                           <a
-                            className={`${TagsLo.tags__item} ${TagsLo.tags__item__option}`}
+                            className={`${Style.tags__item} ${Style.tags__item__option}`}
                           >
                             {posts.tagTitle}
                           </a>
                         </Link>
                       ))}
                     </div>
-                    <div className={TagsLo.news}>
-                      <p className={TagsLo.news__title}>
+                    <div className={Style.news}>
+                      <p className={Style.news__title}>
                         <Link href={`/blog/${posts.id}`}>
-                          <a
-                            className={TagsLo.news__link}
-                          >{`${posts.title}`}</a>
+                          <a className={Style.news__link}>{`${posts.title}`}</a>
                         </Link>
                       </p>
                     </div>
@@ -138,7 +136,7 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
                 />
               </div>
             </div>
-          </div>
+          </Typography>
           <Footer />
         </Layout>
       </div>
