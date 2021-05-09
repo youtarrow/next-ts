@@ -180,13 +180,4 @@
   .sideMenu {
     display: none;
   }
-  // pages/blog/[id].tsx
-  .blog {
-    &__list {
-      .item {
-        max-width: 100%;
-        width: 100%;
-      }
-    }
-  }
 }

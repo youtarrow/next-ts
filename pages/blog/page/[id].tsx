@@ -12,7 +12,7 @@ import Footer from "components/Footer";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import Style from "components/styles/articles.module.scss";
+// import Style from "components/styles/articles.module.scss";
 
 export type StaticProps = {
   errors?: string;
@@ -57,12 +57,12 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
       <Layout title="Home | Next.js + TypeScript Example">
         <Header />
         <Nav value={1} />
-        <Typography component="div" className={Style.blog}>
+        <Typography component="div" className="blog">
           <div className="inner">
             <Box
               display="flex"
               flexWrap="wrap"
-              className={Style.blog__list}
+              className="blog__list"
               component="ul"
             >
               {posts.map((posts, index) => (
