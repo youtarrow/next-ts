@@ -55,3 +55,29 @@ export type MicroCmsTags = {
   offset: number;
   limit: number;
 };
+
+export type UserData = {
+  contents: [
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      revisedAt: string;
+      name: string;
+      occupation: string;
+      introduction: any;
+      career: any;
+      image: {
+        url: string;
+        height: number;
+        width: number;
+      };
+      twitter: string;
+      git: string;
+    }
+  ];
+  totalCount: number;
+  offset: number;
+  limit: number;
+};

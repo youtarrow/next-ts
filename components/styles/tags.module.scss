@@ -89,17 +89,6 @@
     flex-direction: column;
     margin-bottom: 10px;
     font-size: 20px;
-    &__figure {
-      width: 80px;
-      img {
-        border-radius: 100%;
-      }
-    }
-    &__item {
-      &:first-child {
-        margin-right: 5px;
-      }
-    }
   }
   .sns {
     margin-bottom: 10px;
@@ -109,8 +98,7 @@
     justify-content: center;
     &__item {
       display: block;
-      width: 30px;
-      margin-right: 10px;
+      margin-right: 5px;
       transition: 0.3s;
       &:last-child {
         margin-right: 0;

@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { Pagination } from "@material-ui/lab/";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
-import { MicroCmsBlog, MicroCmsTags } from "types/microCmsData";
+import { MicroCmsBlog, UserData } from "types/microCmsData";
 import { NextPage, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import fetch from "node-fetch";
@@ -13,11 +13,13 @@ import Nav from "components/Nav";
 import Title from "components/Title";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 import Style from "components/styles/tags.module.scss";
 
 const PER_PAGE = 6;
 
-const useStyles = makeStyles((theme) =>
+// const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       "& > *": {
@@ -29,18 +31,31 @@ const useStyles = makeStyles((theme) =>
         justifyContent: "center",
       },
     },
+    large: {
+      width: theme.spacing(13),
+      height: theme.spacing(13),
+    },
   })
 );
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     large: {
+//       width: theme.spacing(13),
+//       height: theme.spacing(13),
+//     },
+//   })
+// );
 
 export type StaticProps = {
   errors?: string;
-  tags: MicroCmsTags;
   value: number;
 };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
+const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount, user }) => {
+  const postBody = `${user[0].introduction}`;
+
   const classes = useStyles();
   const router = useRouter();
 
@@ -68,75 +83,81 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount }) => {
         >
           <Header />
           <Nav value={1} />
-          <Typography component="div" className={Style.subdirectory}>
-            <div className={Style.sideMenu}>
-              <div className={Style.profile}>
-                <h2 className={Style.profile__title}>▼ Profile</h2>
-                <ul className={Style.myName}>
-                  <li className={Style.myName__item}>
-                    <figure className={Style.myName__figure}>
-                      <Image src="/300x300.png" width={100} height={100} />
-                    </figure>
-                  </li>
-                  <li className={Style.myName__item}>My Name</li>
-                </ul>
-                <div className={Style.sns}>
-                  <Link href="/">
-                    <a className={Style.sns__item}>
-                      <Image src="/github.svg" width={100} height={100} />
-                    </a>
-                  </Link>
-                  <Link href="/">
-                    <a className={Style.sns__item}>
-                      <Image src="/twitter.svg" width={100} height={100} />
-                    </a>
-                  </Link>
+          <Typography component="div" className="tagSlug">
+            <div className={Style.subdirectory}>
+              <div className={Style.sideMenu}>
+                <div className={Style.profile}>
+                  <h2 className={Style.profile__title}>▼ Profile</h2>
+                  <ul className={Style.myName}>
+                    <li className={Style.myName__item}>
+                      <Avatar
+                        alt="User Icon"
+                        src={`${user[0].image.url}`}
+                        className={classes.large}
+                      />
+                    </li>
+                    <li className={Style.myName__item}>{user[0].name}</li>
+                  </ul>
+                  <div className={Style.sns}>
+                    <Link href={`${user[0].git}`}>
+                      <a className={Style.sns__item} target="_blank">
+                        <Avatar alt="Git Icon" src={`/github.svg`} />
+                      </a>
+                    </Link>
+                    <Link href={`${user[0].twitter}`}>
+                      <a className={Style.sns__item} target="_blank">
+                        <Avatar alt="Twitter Icon" src={`/twitter.svg`} />
+                      </a>
+                    </Link>
+                  </div>
+                  <div
+                    className={Style.profile__text}
+                    dangerouslySetInnerHTML={{ __html: postBody }}
+                  ></div>
+                  <p className={Style.profile__link}>
+                    <a href="/contact/">Contact Us</a>
+                  </p>
                 </div>
-                <p className={Style.profile__text}>
-                  テストテストテストテスト テスト テストテスト テスト テスト
-                  テスト テスト テスト テスト
-                </p>
-                <p className={Style.profile__link}>
-                  <a href="">Contact Us</a>
-                </p>
               </div>
-            </div>
-            <div className={Style.content}>
-              <Title title={`${name[0].tag[0].tagTitle}`} />
-              <ul className={Style.list}>
-                {posts.map((posts, index) => (
-                  <li key={index} className={Style.list__item}>
-                    <div className={Style.tags}>
-                      <span className={Style.tags__icon}></span>
-                      {posts.tag.map((posts, index) => (
-                        <Link key={index} href={`/tags/${posts.id}/1/`}>
-                          <a
-                            className={`${Style.tags__item} ${Style.tags__item__option}`}
-                          >
-                            {posts.tagTitle}
-                          </a>
-                        </Link>
-                      ))}
-                    </div>
-                    <div className={Style.news}>
-                      <p className={Style.news__title}>
-                        <Link href={`/blog/${posts.id}`}>
-                          <a className={Style.news__link}>{`${posts.title}`}</a>
-                        </Link>
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className={classes.root}>
-                <Pagination
-                  className={classes.ul}
-                  variant="outlined"
-                  shape="rounded"
-                  count={Math.ceil(totalCount / PER_PAGE)}
-                  page={pageNum}
-                  onChange={handleChange}
-                />
+              <div className={Style.content}>
+                <Title title={`${name[0].tag[0].tagTitle}`} />
+                <ul className={Style.list}>
+                  {posts.map((posts, index) => (
+                    <li key={index} className={Style.list__item}>
+                      <div className={Style.tags}>
+                        <span className={Style.tags__icon}></span>
+                        {posts.tag.map((posts, index) => (
+                          <Link key={index} href={`/tags/${posts.id}/1/`}>
+                            <a
+                              className={`${Style.tags__item} ${Style.tags__item__option}`}
+                            >
+                              {posts.tagTitle}
+                            </a>
+                          </Link>
+                        ))}
+                      </div>
+                      <div className={Style.news}>
+                        <p className={Style.news__title}>
+                          <Link href={`/blog/${posts.id}`}>
+                            <a
+                              className={Style.news__link}
+                            >{`${posts.title}`}</a>
+                          </Link>
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className={classes.root}>
+                  <Pagination
+                    className={classes.ul}
+                    variant="outlined"
+                    shape="rounded"
+                    count={Math.ceil(totalCount / PER_PAGE)}
+                    page={pageNum}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             </div>
           </Typography>
@@ -156,6 +177,7 @@ export const getServerSideProps = async (context: any) => {
     headers: { "X-API-KEY": process.env.apiKeyCms as string },
   };
   const blogUrl = process.env.blogEndPoint as string;
+  const userUrl = process.env.userEndPoint as string;
 
   const data: MicroCmsBlog = await fetch(
     `${blogUrl}?offset=${
@@ -166,11 +188,16 @@ export const getServerSideProps = async (context: any) => {
     .then((res) => res.json())
     .catch(() => null);
 
+  const user: UserData = await fetch(`${userUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
   return {
     props: {
       posts: data.contents,
       keyWord: keyword,
       totalCount: data.totalCount,
+      user: user.contents,
     },
   };
 };
