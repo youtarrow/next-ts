@@ -13,22 +13,22 @@ export type Props = {};
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Contact: NextPage<PageProps> = ({ user, info }) => {
+const privacyPolicy: NextPage<PageProps> = ({ user, info }) => {
   console.log(user);
 
   return (
     <div className="index">
       <Layout
-        title={`Contact | ${info[0].siteName}`}
-        description={`Contact | ${info[0].description}`}
+        title={`Privacy Policy | ${info[0].siteName}`}
+        description={`Privacy Policy | ${info[0].description}`}
       >
         <Header />
-        <Nav value={3} />
+        <Nav value={2} />
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="md">
             <Typography component="div">
-              <h1>Contact</h1>
+              <h1>Portfolio</h1>
             </Typography>
           </Container>
         </React.Fragment>
@@ -60,4 +60,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default Contact;
+export default privacyPolicy;

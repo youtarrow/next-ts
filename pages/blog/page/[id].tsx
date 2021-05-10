@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Pagination } from "@material-ui/lab/";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
-import { MicroCmsBlog } from "types/microCmsData";
+import { MicroCmsBlog, infoData } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
 import fetch from "node-fetch";
 import Header from "components/Header";
@@ -12,7 +12,6 @@ import Footer from "components/Footer";
 import Blog from "components/Blog";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-// import Style from "components/styles/articles.module.scss";
 
 export type StaticProps = {
   errors?: string;
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme) =>
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
+const PageId: NextPage<PageProps> = ({ posts, totalCount, info }) => {
   const classes = useStyles();
   const router = useRouter();
   const pageId = router.query.id
@@ -55,8 +54,8 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount }) => {
   return (
     <div className="index">
       <Layout
-        title={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site`}
-        description={`記事一覧 ${pageId}ページ目 | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+        title={`記事一覧 ${pageId}ページ目 | ${info[0].siteName}`}
+        description={`記事一覧 ${pageId}ページ目 | ${info[0].description}`}
       >
         <Header />
         <Nav value={1} />
@@ -133,10 +132,17 @@ export const getStaticProps = async (context: any) => {
   )
     .then((res) => res.json())
     .catch(() => null);
+
+  const infoUrl = process.env.infoEndPoint as string;
+  const info: infoData = await fetch(`${infoUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
   return {
     props: {
       posts: data.contents,
       totalCount: data.totalCount,
+      info: info.contents,
     },
   };
 };
