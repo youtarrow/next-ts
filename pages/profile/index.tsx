@@ -1,4 +1,6 @@
 import React from "react";
+import { UserData, infoData } from "types/microCmsData";
+import { InferGetStaticPropsType, NextPage } from "next";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Nav from "components/Nav";
@@ -9,12 +11,16 @@ import Container from "@material-ui/core/Container";
 
 export type Props = {};
 
-const Profile: React.FC = () => {
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+const Profile: NextPage<PageProps> = ({ user, info }) => {
+  console.log(user);
+
   return (
     <div className="index">
       <Layout
-        title={`Profile | Yu Ecchuya, Portfolio Site`}
-        description={`Profile | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。 私のプロフィールを掲載しています。`}
+        title={`Profile | ${info[0].siteName}`}
+        description={`Profile | ${info[0].description}`}
       >
         <Header />
         <Nav value={2} />
@@ -30,6 +36,28 @@ const Profile: React.FC = () => {
       </Layout>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  const key = {
+    headers: { "X-API-KEY": process.env.apiKeyCms as string },
+  };
+  const userUrl = process.env.userEndPoint as string;
+  const user: UserData = await fetch(`${userUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
+  const infoUrl = process.env.infoEndPoint as string;
+  const info: infoData = await fetch(`${infoUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
+  return {
+    props: {
+      user: user.contents,
+      info: info.contents,
+    },
+  };
 };
 
 export default Profile;

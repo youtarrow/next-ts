@@ -2,9 +2,8 @@ import React, { useCallback } from "react";
 import { Pagination } from "@material-ui/lab/";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
-import { MicroCmsBlog, UserData } from "types/microCmsData";
+import { MicroCmsBlog, UserData, infoData } from "types/microCmsData";
 import { NextPage, InferGetServerSidePropsType } from "next";
-import Image from "next/image";
 import fetch from "node-fetch";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
@@ -37,14 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     large: {
-//       width: theme.spacing(13),
-//       height: theme.spacing(13),
-//     },
-//   })
-// );
 
 export type StaticProps = {
   errors?: string;
@@ -53,7 +44,13 @@ export type StaticProps = {
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount, user }) => {
+const Tags: NextPage<PageProps> = ({
+  posts,
+  keyWord,
+  totalCount,
+  user,
+  info,
+}) => {
   const postBody = `${user[0].introduction}`;
 
   const classes = useStyles();
@@ -78,8 +75,8 @@ const Tags: NextPage<PageProps> = ({ posts, keyWord, totalCount, user }) => {
     <>
       <div className="index">
         <Layout
-          title={`タグ一覧 ${name[0].tag[0].tagTitle} | Yu Ecchuya, Portfolio Site`}
-          description={`タグ一覧 ${name[0].tag[0].tagTitle} | Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+          title={`タグ一覧 ${name[0].tag[0].tagTitle} | ${info[0].siteName}`}
+          description={`タグ一覧 ${name[0].tag[0].tagTitle} | ${info[0].description}`}
         >
           <Header />
           <Nav value={1} />
@@ -192,12 +189,18 @@ export const getServerSideProps = async (context: any) => {
     .then((res) => res.json())
     .catch(() => null);
 
+  const infoUrl = process.env.infoEndPoint as string;
+  const info: infoData = await fetch(`${infoUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
   return {
     props: {
       posts: data.contents,
       keyWord: keyword,
       totalCount: data.totalCount,
       user: user.contents,
+      info: info.contents,
     },
   };
 };

@@ -81,3 +81,26 @@ export type UserData = {
   offset: number;
   limit: number;
 };
+
+export type infoData = {
+  contents: [
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      revisedAt: string;
+      siteName: string;
+      subTitle: string;
+      description: string;
+      favicon: {
+        url: string;
+        height: number;
+        width: number;
+      };
+    }
+  ];
+  totalCount: number;
+  offset: number;
+  limit: number;
+};

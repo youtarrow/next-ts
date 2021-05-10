@@ -1,4 +1,6 @@
 import React from "react";
+import { UserData, infoData } from "types/microCmsData";
+import { InferGetStaticPropsType, NextPage } from "next";
 import Layout from "components/Layout";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -8,18 +10,26 @@ import TopMenu from "components/TopMenu";
 import FooterNav from "components/FooterNav";
 import Footer from "components/Footer";
 
-const Index: React.FC = () => {
+export type Props = {};
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+const Index: NextPage<PageProps> = ({ user, info }) => {
   return (
     <div className="home" style={{ paddingTop: "50px" }}>
       <Layout
-        title="Home | Yu Ecchuya, Portfolio Site"
-        description={`Yu Ecchuya, Portfolio Site 技術的なブログをユルユルに更新しています。`}
+        title={`${info[0].siteName}`}
+        description={`${info[0].description}`}
       >
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="md">
             <Typography component="div">
-              <SiteTitle />
+              <SiteTitle
+                pageTitle={`${info[0].siteName}`}
+                subTitle={info[0].subTitle}
+                userImges={user[0].image.url}
+              />
               <TopMenu />
             </Typography>
           </Container>
@@ -29,6 +39,28 @@ const Index: React.FC = () => {
       </Layout>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  const key = {
+    headers: { "X-API-KEY": process.env.apiKeyCms as string },
+  };
+  const userUrl = process.env.userEndPoint as string;
+  const user: UserData = await fetch(`${userUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
+  const infoUrl = process.env.infoEndPoint as string;
+  const info: infoData = await fetch(`${infoUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
+  return {
+    props: {
+      user: user.contents,
+      info: info.contents,
+    },
+  };
 };
 
 export default Index;

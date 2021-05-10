@@ -13,7 +13,7 @@ export type Props = {};
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 275,
+    maxWidth: 232,
   },
   bullet: {
     display: "inline-block",
@@ -25,6 +25,9 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     fontSize: 25,
   },
+  tex: {
+    height: 70,
+  },
 });
 
 export const TopMenu: React.FC = () => {
@@ -32,20 +35,14 @@ export const TopMenu: React.FC = () => {
 
   return (
     <div className={Style.topMenu}>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        spacing={3}
-      >
-        <Grid item>
-          <Card className={classes.root}>
+      <Grid container direction="row" justify="center" wrap="wrap" spacing={2}>
+        <Grid item className={classes.root}>
+          <Card>
             <CardContent>
               <Typography className={classes.pos} variant="h4" component="h3">
-                Blog
+                Blogs
               </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body2" component="p" className={classes.tex}>
                 主に個人開発で得た知識などを書いています。<br></br>&nbsp;
               </Typography>
             </CardContent>
@@ -56,13 +53,13 @@ export const TopMenu: React.FC = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item>
-          <Card className={classes.root}>
+        <Grid item className={classes.root}>
+          <Card>
             <CardContent>
               <Typography className={classes.pos} variant="h4" component="h3">
                 Profile
               </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body2" component="p" className={classes.tex}>
                 私個人の経歴を記載しております。<br></br>
                 <br></br>&nbsp;
               </Typography>
@@ -74,13 +71,31 @@ export const TopMenu: React.FC = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item>
-          <Card className={classes.root}>
+        <Grid item className={classes.root}>
+          <Card>
+            <CardContent>
+              <Typography className={classes.pos} variant="h4" component="h3">
+                Portfolio
+              </Typography>
+              <Typography variant="body2" component="p" className={classes.tex}>
+                当サイトの情報を掲載しています。<br></br>
+                <br></br>&nbsp;
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Link href={`/portfolio/`}>
+                <Button size="small">Learn More</Button>
+              </Link>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item className={classes.root}>
+          <Card>
             <CardContent>
               <Typography className={classes.pos} variant="h4" component="h3">
                 Contact
               </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body2" component="p" className={classes.tex}>
                 ご連絡等はこちらからお願いいたします。
                 <br></br>&nbsp;
               </Typography>

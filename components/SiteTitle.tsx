@@ -4,7 +4,11 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Style from "components/styles/siteTitle.module.scss";
 
-export type Props = {};
+export type Props = {
+  pageTitle: string;
+  subTitle: string;
+  userImges: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SiteTitle: React.FC = () => {
+export const SiteTitle: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   return (
@@ -28,11 +32,15 @@ export const SiteTitle: React.FC = () => {
         spacing={3}
       >
         <Grid item>
-          <h1 className={Style.pageTitle}>Portfolio Yu Ecchuya</h1>
-          <h2 className={Style.subTitle}>Web Developer</h2>
+          <h1 className={Style.pageTitle}>{props.pageTitle}</h1>
+          <h2 className={Style.subTitle}>{props.subTitle}</h2>
         </Grid>
         <Grid item>
-          <Avatar alt="user name" src="/user.jpg" className={classes.large} />
+          <Avatar
+            alt="user icon"
+            src={`${props.userImges}`}
+            className={classes.large}
+          />
         </Grid>
       </Grid>
     </div>
