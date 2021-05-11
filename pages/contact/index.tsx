@@ -21,6 +21,7 @@ const Contact: NextPage<PageProps> = ({ user, info }) => {
       <Layout
         title={`Contact | ${info[0].siteName}`}
         description={`Contact | ${info[0].description}`}
+        favicon={`${info[0].favicon.url}`}
       >
         <Header />
         <Nav value={3} />

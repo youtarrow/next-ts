@@ -56,6 +56,7 @@ const PageId: NextPage<PageProps> = ({ posts, totalCount, info }) => {
       <Layout
         title={`記事一覧 ${pageId}ページ目 | ${info[0].siteName}`}
         description={`記事一覧 ${pageId}ページ目 | ${info[0].description}`}
+        favicon={`${info[0].favicon.url}`}
       >
         <Header />
         <Nav value={1} />
