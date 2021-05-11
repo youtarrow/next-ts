@@ -1,6 +1,6 @@
 import React from "react";
 import cheerio from "cheerio";
-import { MicroCmsData, MicroCmsBlog } from "types/microCmsData";
+import { MicroCmsData, MicroCmsBlog, infoData } from "types/microCmsData";
 import { NextPage, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 import fetch from "node-fetch";
@@ -20,7 +20,7 @@ export type Props = {
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const BlogDetail: NextPage<PageProps> = ({ posts }) => {
+const BlogDetail: NextPage<PageProps> = ({ posts, info }) => {
   const $ = cheerio.load(posts.body);
   const headings = $("h2, h3").toArray();
 
@@ -32,6 +32,7 @@ const BlogDetail: NextPage<PageProps> = ({ posts }) => {
         <Layout
           title={`${posts.title} | Yu Ecchuya, Portfolio Site`}
           description={`${posts.meta.metaDescription}`}
+          favicon={`${info[0].favicon.url}`}
         >
           <Header />
           <Nav value={1} />
@@ -116,9 +117,16 @@ export const getStaticProps = async (context: any) => {
   const blogUrl = process.env.blogEndPoint as string;
   const res = await fetch(`${blogUrl}/${id}`, key);
   const data: MicroCmsData = await res.json();
+
+  const infoUrl = process.env.infoEndPoint as string;
+  const info: infoData = await fetch(`${infoUrl}/`, key)
+    .then((res) => res.json())
+    .catch(() => null);
+
   return {
     props: {
       posts: data,
+      info: info.contents,
     },
   };
 };

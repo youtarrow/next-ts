@@ -21,6 +21,7 @@ const Profile: NextPage<PageProps> = ({ user, info }) => {
       <Layout
         title={`Profile | ${info[0].siteName}`}
         description={`Profile | ${info[0].description}`}
+        favicon={`${info[0].favicon.url}`}
       >
         <Header />
         <Nav value={2} />

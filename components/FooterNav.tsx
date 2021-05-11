@@ -26,7 +26,7 @@ export const FooterNav: React.FC = () => {
             </Link>
           </Grid>
           <Grid item className={Style.listItem}>
-            <Link color="inherit" href="/">
+            <Link color="inherit" href="/privacy_policy/">
               Privacy Policy
             </Link>
           </Grid>

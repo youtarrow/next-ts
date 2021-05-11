@@ -77,6 +77,7 @@ const Tags: NextPage<PageProps> = ({
         <Layout
           title={`タグ一覧 ${name[0].tag[0].tagTitle} | ${info[0].siteName}`}
           description={`タグ一覧 ${name[0].tag[0].tagTitle} | ${info[0].description}`}
+          favicon={`${info[0].favicon.url}`}
         >
           <Header />
           <Nav value={1} />

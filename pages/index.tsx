@@ -10,7 +10,9 @@ import TopMenu from "components/TopMenu";
 import FooterNav from "components/FooterNav";
 import Footer from "components/Footer";
 
-export type Props = {};
+export type Props = {
+  title: string;
+};
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -20,6 +22,7 @@ const Index: NextPage<PageProps> = ({ user, info }) => {
       <Layout
         title={`${info[0].siteName}`}
         description={`${info[0].description}`}
+        favicon={`${info[0].favicon.url}`}
       >
         <React.Fragment>
           <CssBaseline />

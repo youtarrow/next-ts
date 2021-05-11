@@ -21,6 +21,7 @@ const privacyPolicy: NextPage<PageProps> = ({ user, info }) => {
       <Layout
         title={`Privacy Policy | ${info[0].siteName}`}
         description={`Privacy Policy | ${info[0].description}`}
+        favicon={`${info[0].favicon.url}`}
       >
         <Header />
         <Nav value={2} />
