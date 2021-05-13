@@ -6,7 +6,7 @@ import Style from "components/styles/footerNav.module.scss";
 
 export const FooterNav: React.FC = () => {
   return (
-    <div className={Style.footerNav}>
+    <div className="footerNav">
       <Typography color="textPrimary" component="div">
         <Grid
           container

@@ -10,10 +10,14 @@ html {
     background-color: #fff;
     color: #000;
   }
+  .footerNav {
+    margin-top: 0;
+  }
 }
 
 .blog,
-.tagSlug {
+.tagSlug,
+.profile {
   margin-top: 30px !important;
 }
 
@@ -44,4 +48,9 @@ html {
   color: white;
   text-align: center;
   font-size: 14px;
+}
+
+// footerNav.tsx
+.footerNav {
+  margin-top: 50px;
 }
