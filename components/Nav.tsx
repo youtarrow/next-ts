@@ -46,6 +46,7 @@ export const Nav: React.FC<Props> = (props) => {
           <Tab label="HOME" href={"/"} {...a11yProps(value)} />
           <Tab label="BLOG" href={"/blog/page/1/"} {...a11yProps(value)} />
           <Tab label="PROFILE" href={"/profile/"} {...a11yProps(value)} />
+          <Tab label="PORTFOLIO" href={"/portfolio/"} {...a11yProps(value)} />
           <Tab label="CONTACT" href={"/contact/"} {...a11yProps(value)} />
         </Tabs>
       </AppBar>
