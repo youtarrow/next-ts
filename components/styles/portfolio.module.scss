@@ -1,0 +1,51 @@
+// pages/portfolio/index.tsx
+.title {
+  font-weight: bold;
+  line-height: normal;
+  &H2 {
+    font-size: 30px;
+  }
+}
+.timeStamp {
+  margin-bottom: 10px;
+}
+.linkArea {
+  text-align: center;
+  &__link {
+    background-color: #c1c1c1 !important;
+    transition: 0.3s;
+    &Option {
+      background-color: #000 !important;
+    }
+    &:hover {
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+  }
+}
+.framework {
+  margin: 0 0 20px !important;
+  &__item {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    margin-right: 5px !important;
+    margin-bottom: 5px !important;
+    &:last-child {
+      margin-right: 0 !important;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .contentArea {
+    &__left,
+    &__right {
+      flex-basis: 100% !important;
+      max-width: 100% !important;
+    }
+    &__left {
+      text-align: center;
+    }
+  }
+}

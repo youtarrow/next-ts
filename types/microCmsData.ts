@@ -104,3 +104,39 @@ export type infoData = {
   offset: number;
   limit: number;
 };
+
+export type PortfolioData = {
+  contents: [
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      revisedAt: string;
+      siteName: string;
+      date: string;
+      framework: [
+        {
+          id: string;
+          createdAt: string;
+          updatedAt: string;
+          publishedAt: string;
+          revisedAt: string;
+          tagTitle: string;
+          tagType: number;
+        }
+      ];
+      comment: any;
+      siteImage: {
+        url: string;
+        height: number;
+        width: number;
+      };
+      siteUrl: string;
+      git: string;
+    }
+  ];
+  totalCount: number;
+  offset: number;
+  limit: number;
+};
