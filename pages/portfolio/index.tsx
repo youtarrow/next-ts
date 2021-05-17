@@ -1,5 +1,5 @@
 import React from "react";
-import { UserData, infoData, PortfolioData } from "types/microCmsData";
+import { infoData, PortfolioData } from "types/microCmsData";
 import { InferGetStaticPropsType, NextPage } from "next";
 import Header from "components/Header";
 import Footer from "components/Footer";
