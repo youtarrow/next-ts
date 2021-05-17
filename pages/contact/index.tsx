@@ -24,7 +24,7 @@ const Contact: NextPage<PageProps> = ({ user, info }) => {
         favicon={`${info[0].favicon.url}`}
       >
         <Header />
-        <Nav value={3} />
+        <Nav value={4} />
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="md">
