@@ -32,7 +32,7 @@ const Profile: NextPage<PageProps> = ({ user, info }) => {
         <div className="profile">
           <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="md">
+            <Container maxWidth="md" className="container">
               <Typography component="div">
                 <Box component="div" className={Style.title}>
                   <h2 className={Style.titleH2}>{user[0].name}</h2>

@@ -1,0 +1,45 @@
+// pages/contact/index.tsx
+.title {
+  font-size: 30px;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  transform: translate(0px, -30px);
+}
+.inner {
+  max-width: 700px !important;
+  margin: 50px auto 0;
+  border: 1px solid gray;
+}
+.label {
+  font-weight: bold;
+  font-size: 16px;
+}
+.inputText {
+  margin: 10px 0 0 !important;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: normal;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-left: 10px;
+  display: block;
+  width: 100%;
+  line-height: 1.7;
+}
+.submit {
+  background-color: #000;
+  padding: 5px;
+  text-align: center;
+  color: #fff;
+  width: 300px;
+  margin: 20px auto;
+  display: block;
+}
+.box {
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 640px) {
+}
