@@ -22,6 +22,14 @@ html {
   margin-top: 30px !important;
 }
 
+.profile,
+.portfolio {
+  .container {
+    padding: 20px;
+    background-color: #fff;
+  }
+}
+
 .inner {
   margin: 0 auto;
   padding: 0 10px;
@@ -54,4 +62,13 @@ html {
 // footerNav.tsx
 .footerNav {
   margin-top: 50px;
+}
+
+@media screen and (max-width: 640px) {
+  .blog,
+  .tagSlug,
+  .profile,
+  .portfolio {
+    padding: 10px;
+  }
 }

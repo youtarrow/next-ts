@@ -16,6 +16,7 @@ import Box from "@material-ui/core/Box";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import dayjs from "dayjs";
+import FooterNav from "components/FooterNav";
 
 export type Props = {};
 
@@ -51,7 +52,7 @@ const Portfolio: NextPage<PageProps> = ({ info, portfolio }) => {
         <div className="portfolio">
           <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="md">
+            <Container maxWidth="md" className="container">
               <Typography component="div">
                 <Grid
                   container
@@ -119,6 +120,7 @@ const Portfolio: NextPage<PageProps> = ({ info, portfolio }) => {
             </Container>
           </React.Fragment>
         </div>
+        <FooterNav />
         <Footer />
       </Layout>
     </div>
