@@ -68,7 +68,7 @@ const Contact: NextPage<PageProps> = ({ info }) => {
                 <h2 className={Style.title}>contact</h2>
                 <Box component="div" className={Style.box}>
                   <label className={Style.label}>
-                    氏名
+                    お名前
                     <input
                       type="text"
                       name="name"
